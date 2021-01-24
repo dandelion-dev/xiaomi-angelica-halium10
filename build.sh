@@ -1,15 +1,38 @@
 #!/bin/bash
 set -xe
-chmod +x build/*.sh
-OUT="$(realpath "$1" 2>/dev/null || echo 'out')"
+
+BUILD_DIR=
+OUT=
+
+while [ $# -gt 0 ]
+do
+    case "$1" in
+    (-b) BUILD_DIR="$(realpath "$2")"; shift;;
+    (-o) OUT="$2"; shift;;
+    (-*) echo "$0: Error: unknown option $1" 1>&2; exit 1;;
+    (*) OUT="$2"; break;;
+    esac
+    shift
+done
+
+OUT="$(realpath "$OUT" 2>/dev/null || echo 'out')"
 mkdir -p "$OUT"
 
-TMP=$(mktemp -d)
+if [ -z "$BUILD_DIR" ]; then
+    TMP=$(mktemp -d)
+    TMPDOWN=$(mktemp -d)
+else
+    TMP="$BUILD_DIR/tmp"
+    mkdir -p "$TMP"
+    TMPDOWN="$BUILD_DIR/downloads"
+    mkdir -p "$TMPDOWN"
+fi
+
 HERE=$(pwd)
 SCRIPT="$(dirname "$(realpath "$0")")"/build
 
-mkdir "${TMP}/system"
-mkdir "${TMP}/partitions"
+mkdir -p "${TMP}/system"
+mkdir -p "${TMP}/partitions"
 
 source "${HERE}/deviceinfo"
 
@@ -19,21 +42,22 @@ case $deviceinfo_arch in
     "x86") RAMDISK_ARCH="i386";;
 esac
 
-TMPDOWN=$(mktemp -d)
 cd "$TMPDOWN"
-    git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b pie-gsi --depth 1
+    [ -d aarch64-linux-android-4.9 ] || git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b pie-gsi --depth 1
     GCC_PATH="$TMPDOWN/aarch64-linux-android-4.9"
     if $deviceinfo_kernel_clang_compile; then
-        git clone https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 -b android10-gsi --depth 1
+        [ -d linux-x86 ] || git clone https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 -b android10-gsi --depth 1
         CLANG_PATH="$TMPDOWN/linux-x86/clang-r353983c"
     fi
     if [ "$deviceinfo_arch" == "aarch64" ]; then
-        git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 -b pie-gsi --depth 1
+        [ -d arm-linux-androideabi-4.9 ] || git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 -b pie-gsi --depth 1
         GCC_ARM32_PATH="$TMPDOWN/arm-linux-androideabi-4.9"
     fi
-    git clone "$deviceinfo_kernel_source" -b $deviceinfo_kernel_source_branch --depth 1
+    KERNEL_DIR="$(basename "${deviceinfo_kernel_source}")"
+    KERNEL_DIR="${KERNEL_DIR%.*}"
+    [ -d "$KERNEL_DIR" ] || git clone "$deviceinfo_kernel_source" -b $deviceinfo_kernel_source_branch --depth 1
 
-    curl --location --output halium-boot-ramdisk.img \
+    [ -f halium-boot-ramdisk.img ] || curl --location --output halium-boot-ramdisk.img \
         "https://github.com/halium/initramfs-tools-halium/releases/download/continuous/initrd.img-touch-${RAMDISK_ARCH}"
     
     if $deviceinfo_kernel_apply_overlay; then
@@ -62,8 +86,10 @@ fi
 cp -av overlay/* "${TMP}/"
 "$SCRIPT/build-tarball-mainline.sh" "${deviceinfo_codename}" "${OUT}" "${TMP}"
 
-rm -r "${TMP}"
-rm -r "${TMPDOWN}"
+if [ -z "$BUILD_DIR" ]; then
+    rm -r "${TMP}"
+    rm -r "${TMPDOWN}"
+fi
 
 echo "done"
 
