@@ -17,7 +17,8 @@ flashable:
   script:
     - apt update
     - apt install -y img2simg jq sudo wget xz-utils
-    - ./build/fetch-and-prepare-latest-ota.sh "16.04/arm64/android9/devel" "lancelot" ota
+    - DEVICE="$(source deviceinfo && echo $deviceinfo_codename)"
+    - ./build/fetch-and-prepare-latest-ota.sh "16.04/arm64/android9/devel" "$DEVICE" ota
     - mkdir -p out
     - ./build/system-image-from-ota.sh ota/ubuntu_command out
   artifacts:
@@ -31,7 +32,8 @@ devel-flashable:
   script:
     - apt update
     - apt install -y img2simg jq sudo wget xz-utils
-    - ./build/prepare-fake-ota.sh out/device_lancelot.tar.xz ota
+    - DEVICE="$(source deviceinfo && echo $deviceinfo_codename)"
+    - ./build/prepare-fake-ota.sh out/device_$DEVICE.tar.xz ota
     - mkdir -p out
     - ./build/system-image-from-ota.sh ota/ubuntu_command out
     - mv out/rootfs.img out/ubuntu.img
