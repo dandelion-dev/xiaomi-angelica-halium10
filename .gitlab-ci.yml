@@ -1,0 +1,40 @@
+image: ubuntu:20.04
+
+build:
+  stage: build
+  script:
+    - apt update
+    - apt install android-tools-mkbootimg bc bison build-essential ca-certificates cpio curl flex git kmod libssl-dev libtinfo5 python2 sudo unzip wget xz-utils -y --no-install-recommends
+    - ln -sf python2.7 /usr/bin/python
+    - wget https://raw.githubusercontent.com/LineageOS/android_system_core/lineage-17.1/mkbootimg/mkbootimg.py -O /usr/bin/mkbootimg
+    - ./build.sh
+  artifacts:
+    paths:
+      - out/*
+
+flashable:
+  stage: deploy
+  script:
+    - apt update
+    - apt install -y img2simg jq sudo wget xz-utils
+    - ./build/fetch-and-prepare-latest-ota.sh "16.04/arm64/android9/devel" "lancelot" ota
+    - mkdir -p out
+    - ./build/system-image-from-ota.sh ota/ubuntu_command out
+  artifacts:
+    paths:
+      - out/boot.img
+      - out/system.img
+  when: manual
+
+devel-flashable:
+  stage: deploy
+  script:
+    - apt update
+    - apt install -y img2simg jq sudo wget xz-utils
+    - ./build/prepare-fake-ota.sh out/device_lancelot.tar.xz ota
+    - mkdir -p out
+    - ./build/system-image-from-ota.sh ota/ubuntu_command out
+  artifacts:
+    paths:
+      - out/boot.img
+      - out/system.img
