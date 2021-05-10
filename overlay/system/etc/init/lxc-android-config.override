@@ -8,4 +8,9 @@ pre-start script
         mkdir -p /sys/fs/cgroup/systemd
         mount -t cgroup cgroup /sys/fs/cgroup/systemd -o name=systemd
     fi
-end script
+    umount -l /sys/fs/cgroup/schedtune || true
+
+    while ! mountpoint -q -- /vendor
+    do
+        sleep 1
+    done
