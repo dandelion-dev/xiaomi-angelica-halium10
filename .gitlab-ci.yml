@@ -34,7 +34,8 @@ devel-flashable:
     - ./build/prepare-fake-ota.sh out/device_lancelot.tar.xz ota
     - mkdir -p out
     - ./build/system-image-from-ota.sh ota/ubuntu_command out
+    - mv out/rootfs.img out/ubuntu.img
   artifacts:
     paths:
       - out/boot.img
-      - out/system.img
+      - out/ubuntu.img
