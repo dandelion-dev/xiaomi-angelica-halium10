@@ -101,3 +101,57 @@ ACTION=="add", KERNEL=="hotknot", OWNER="root", GROUP="system", MODE="0660"
 ACTION=="add", KERNEL=="RT_Monitor", OWNER="system"	, GROUP="system", MODE="0660"
 ACTION=="add", KERNEL=="kick_powerkey", OWNER="system", GROUP="system", MODE="0660"
 ACTION=="add", KERNEL=="ttyACM0", OWNER="radio", GROUP="radio", MODE="0660"
+
+# Added from init.mt6768.rc
+ACTION=="add", KERNEL=="scp", OWNER="root", GROUP="system", MODE="0444"
+ACTION=="add", KERNEL=="sspm", OWNER="root", GROUP="system", MODE="0440"
+ACTION=="add", KERNEL=="pmem_multimedia", OWNER="system", GROUP="system", MODE="0666"
+# CMDQ
+ACTION=="add", KERNEL=="mtk_cmdq", OWNER="system", GROUP="system", MODE="0644"
+# MDP SYNC
+ACTION=="add", KERNEL=="mdp_sync", OWNER="system", GROUP="system", MODE="0644"
+# OPEN DSP
+ACTION=="add", KERNEL=="audio_ipi", OWNER="system", GROUP="android_media", MODE="0640"
+# SmartPA
+ACTION=="add", KERNEL=="audio_scp", OWNER="system", GROUP="android_media", MODE="0640"
+# VideoCodec
+ACTION=="add", KERNEL=="vcu", OWNER="system", GROUP="android_media", MODE="0660"
+ACTION=="add", KERNEL=="video0", OWNER="system", GROUP="android_media", MODE="0666"
+ACTION=="add", KERNEL=="video1", OWNER="system", GROUP="android_media", MODE="0666"
+# Android SEC related device nodes
+ACTION=="add", KERNEL=="sec", OWNER="root", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="sar", OWNER="root", GROUP="system", MODE="0666"
+# gz device
+ACTION=="add", KERNEL=="gz_kree", OWNER="system", GROUP="android_media", MODE="0660"
+# Camera
+ACTION=="add", KERNEL=="camera-sysram", OWNER="system", GROUP="android_media", MODE="0660"
+ACTION=="add", KERNEL=="camera-isp", OWNER="system", GROUP="android_media", MODE="0660"
+ACTION=="add", KERNEL=="camera-dip", OWNER="system", GROUP="android_media", MODE="0660"
+ACTION=="add", KERNEL=="camera-tsf", OWNER="system", GROUP="android_media", MODE="0660"
+ACTION=="add", KERNEL=="camera-dpe", OWNER="system", GROUP="android_media", MODE="0660"
+ACTION=="add", KERNEL=="camera-mfb", OWNER="system", GROUP="android_media", MODE="0660"
+ACTION=="add", KERNEL=="camera-rsc", OWNER="system", GROUP="android_media", MODE="0660"
+ACTION=="add", KERNEL=="camera-owe", OWNER="system", GROUP="android_media", MODE="0660"
+ACTION=="add", KERNEL=="camera-fdvt", OWNER="system", GROUP="android_media", MODE="0660"
+ACTION=="add", KERNEL=="camera-wpe", OWNER="system", GROUP="android_media", MODE="0660"
+ACTION=="add", KERNEL=="camera-pipemgr", OWNER="system", GROUP="android_media", MODE="0660"
+ACTION=="add", KERNEL=="kd_camera_hw", OWNER="system", GROUP="android_media", MODE="0660"
+ACTION=="add", KERNEL=="seninf", OWNER="system", GROUP="android_media", MODE="0660"
+ACTION=="add", KERNEL=="flashlight", OWNER="system", GROUP="android_media", MODE="0660"
+ACTION=="add", KERNEL=="kd_camera_hw_bus2", OWNER="system", GROUP="android_media", MODE="0660"
+ACTION=="add", KERNEL=="FM50AF", OWNER="system", GROUP="android_media", MODE="0660"
+ACTION=="add", KERNEL=="CAM_CAL_DRV", OWNER="system", GROUP="android_media", MODE="0660"
+ACTION=="add", KERNEL=="MAINAF", OWNER="system", GROUP="android_media", MODE="0660"
+ACTION=="add", KERNEL=="MAIN2AF", OWNER="system", GROUP="android_media", MODE="0660"
+ACTION=="add", KERNEL=="MAIN3AF", OWNER="system", GROUP="android_media", MODE="0660"
+ACTION=="add", KERNEL=="SUBAF", OWNER="system", GROUP="android_media", MODE="0660"
+# CCU
+ACTION=="add", KERNEL=="ccu", OWNER="system", GROUP="android_media", MODE="0666"
+# VOW
+ACTION=="add", KERNEL=="vow", OWNER="system", GROUP="android_media", MODE="0640"
+# SMI
+ACTION=="add", KERNEL=="MTK_SMI", OWNER="system", GROUP="android_media", MODE="0660"
+# DFRC
+ACTION=="add", KERNEL=="mtk_dfrc", OWNER="system", GROUP="android_graphics", MODE="0660"
+# usip
+ACTION=="add", KERNEL=="usip", OWNER="system", GROUP="android_media", MODE="0660"
