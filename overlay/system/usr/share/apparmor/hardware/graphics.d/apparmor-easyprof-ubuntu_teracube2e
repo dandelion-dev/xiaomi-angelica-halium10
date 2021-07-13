@@ -1,0 +1,5 @@
+  # Teracube 2e
+  # Needed by PowerVR driver
+  /dev/dri/renderD128 rw,
+  /proc/[0-9]*/timerslack_ns r,
+  /proc/[0-9]*/task/[0-9]*/comm r,
