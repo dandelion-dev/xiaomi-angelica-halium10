@@ -66,8 +66,8 @@ cd "$TMPDOWN"
     fi
 
     if [ -n "$deviceinfo_bootimg_append_vbmeta" ] && $deviceinfo_bootimg_append_vbmeta; then
-        wget https://dl.google.com/developers/android/qt/images/gsi/vbmeta.img
-        git clone https://android.googlesource.com/platform/external/avb -b android10-gsi --depth 1
+        [ -f vbmeta.img ] || wget https://dl.google.com/developers/android/qt/images/gsi/vbmeta.img
+        [ -d avb ] || git clone https://android.googlesource.com/platform/external/avb -b android10-gsi --depth 1
     fi
 
     ls .
