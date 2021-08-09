@@ -1,6 +1,6 @@
 deviceinfo_name="Redmi Note 9"
 deviceinfo_manufacturer="Xiaomi"
-deviceinfo_codename="xiaomi-merlin"
+deviceinfo_codename="merlin"
 deviceinfo_arch="aarch64"
 deviceinfo_kernel_source="https://gitlab.com/ubports/community-ports/android10/xiaomi-redmi-9/kernel-xiaomi-mt6768.git"
 deviceinfo_kernel_source_branch="halium10"
