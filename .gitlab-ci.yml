@@ -1,6 +1,6 @@
 image: ubuntu:20.04
 
-build:
+build-lancelot:
   stage: build
   script:
     - apt update
@@ -25,7 +25,7 @@ build-merlin:
     paths:
       - out/*
 
-flashable:
+flashable-lancelot:
   stage: deploy
   script:
     - apt update
@@ -56,7 +56,7 @@ flashable-merlin:
       - out/system.img
   when: manual
 
-devel-flashable:
+devel-flashable-lancelot:
   stage: deploy
   script:
     - apt update
