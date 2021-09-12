@@ -16,5 +16,5 @@ script
     while [ ! -e /dev/wmtWifi ]; do sleep 0.2; done
     echo 1 > /dev/wmtWifi
 
-    exec /usr/lib/aarch64-linux-gnu/urfkill/urfkilld
+    exec /usr/lib/arm-linux-gnueabihf/urfkill/urfkilld
 end script
