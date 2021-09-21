@@ -43,7 +43,7 @@ jobs:
            name: Halium-boot
            path: out/boot.img
       - run: echo Uploading Artifacts
-      - uses: actions/upload-artifacts@v2
+      - uses: actions/upload-artifact@v2
         with:
            name: Rootfs
            path: out/system.img
