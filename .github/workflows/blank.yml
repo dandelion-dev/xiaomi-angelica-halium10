@@ -25,15 +25,25 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
       - name: Update runner
-        run: sudo apt update && sudo apt install gcc clang build-essential
+        run: sudo apt update && sudo apt install gcc clang build-essential mkbootimg android-tools
 
-      # Runs a set of commands using the runners shell
       - name: Clone in our builder
-        run: |
-          git clone https://github.com/dandelion-dev/xiaomi-angelica-halium10
-          cd xiaomi-angelica-halium10
-          ./build.sh -b out/
-          ./build/prepare-fake-ota.sh out/device_angelica.tar.xz ota
-          ./build/system-image-from-ota.sh ota/ubuntu_command out
+        run: git clone https://github.com/dandelion-dev/xiaomi-angelica-halium10
+          
+      - name: Start build
+        run: ./build.sh -b out/
+        
+      - name: Prepare OTA
+        run: ./build/prepare-fake-ota.sh out/device_angelica.tar.xz ota && ./build/system-image-from-ota.sh ota/ubuntu_command out
+        
+      - run: echo Build Complete!
+      - uses: actions/upload-artifact@v2
+        with:
+           name: Halium-boot
+           path: out/boot.img
+      - run: echo Uploading Artifacts
+      - uses: actions/upload-artifacts@v2
+        with:
+           name: Rootfs
+           path: out/system.img
