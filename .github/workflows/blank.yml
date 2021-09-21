@@ -26,7 +26,16 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Update runner
-        run: sudo apt update && sudo apt install gcc clang build-essential mkbootimg
+        run: sudo apt update && sudo apt install gcc clang build-essential make
+
+      - name: Install mkbootimg
+        run: |
+            git clone https://GitHub.com/osm0sis/mkbootimg.git
+            cd mkbootimg
+            make -j2
+            sudo cp mkbootimg /usr/bin/mkbootimg
+            sudo chmod 777 /usr/bin/mkbootimg
+            cd ~
 
       - name: Clone in our builder
         run: git clone https://github.com/dandelion-dev/xiaomi-angelica-halium10
