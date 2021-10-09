@@ -150,3 +150,5 @@ ACTION=="add", KERNEL=="MTK_SMI", OWNER="system", GROUP="android_media", MODE="0
 ACTION=="add", KERNEL=="mtk_dfrc", OWNER="system", GROUP="android_graphics", MODE="0660"
 # Fingerprint
 ACTION=="add", KERNEL=="goodix_fp", OWNER="root", GROUP="system", MODE="0666"
+# Display
+ACTION=="add", KERNEL=="mtk_disp_mgr", OWNER="root", GROUP="android_graphics", MODE="0777"
