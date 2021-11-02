@@ -56,3 +56,9 @@ jobs:
         with:
            name: Rootfs
            path: out/system.img
+      - run: echo Uploading recovery
+      - uses: actions/upload-artifact@v2
+        with:
+           name: Recovery-image
+           path: out/recovery.img
+       
