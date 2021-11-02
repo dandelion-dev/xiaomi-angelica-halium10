@@ -44,6 +44,8 @@ fi
 
 if [ -n "$deviceinfo_bootimg_append_vbmeta" ] && $deviceinfo_bootimg_append_vbmeta; then
     python2 "$TMPDOWN/avb/avbtool" append_vbmeta_image --image "$OUT" --partition_size "$deviceinfo_bootimg_partition_size" --vbmeta_image "$TMPDOWN/vbmeta.img"
+fi
+
 if [ -n "$deviceinfo_bootimg_prebuilt_dtb" ]; then
     DTB="$HERE/$deviceinfo_bootimg_prebuilt_dtb"
 elif [ -n "$deviceinfo_dtb" ]; then
