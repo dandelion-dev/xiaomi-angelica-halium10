@@ -30,10 +30,8 @@ jobs:
 
       - name: Install mkbootimg
         run: |
-            git clone https://GitHub.com/osm0sis/mkbootimg.git
-            cd mkbootimg
-            make -j2
-            sudo cp mkbootimg /usr/bin/mkbootimg
+            wget https://raw.githubusercontent.com/dandelion-dev/xiaomi-angelica-halium10/halium10/mkbootimg.py
+            sudo mv mkbootimg.py /usr/bin/mkbootimg
             sudo chmod 777 /usr/bin/mkbootimg
             cd ~
 
