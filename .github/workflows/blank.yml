@@ -60,3 +60,8 @@ jobs:
            name: Recovery-image
            path: out/recovery.img
        
+      - run: echo Uploading dtbo
+      - uses: actions/upload-artifact@v2
+        with:
+           name: DTBO image
+           path: out/dtbo.img
